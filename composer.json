@@ -1,0 +1,32 @@
+{
+  "name": "pfinal/justauth-php",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "pfinal南丞",
+      "email": "lampxiezi@163.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "symfony/http-foundation": "^5.0",
+    "guzzlehttp/guzzle": "~6.0|~7.0",
+    "ext-json": "*",
+    "symfony/psr-http-message-bridge": "^2.0",
+    "ext-openssl": "*",
+    "nancheng/pfinal-config": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "JustAuth\\": "src/"
+    },
+    "files": []
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "JustAuth\\Tests\\": "tests/"
+    }
+  }
+}

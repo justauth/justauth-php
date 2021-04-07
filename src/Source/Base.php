@@ -8,11 +8,22 @@ namespace JustAuth\Source;
 
 class Base
 {
-//    use AuthRequestConfig;
-    public function __call($action, $arguments)
+    use AuthRequestConfig;
+
+    public function GithubOAuth2(array $arguments = [])
     {
-        var_dump($action);
-        exit();
+        $this->_init_config();
+
+    }
+
+    private function _init_config()
+    {
+        if (!$this->platform_params) {
+            $this->getPlatFormParamsConfig();
+        }
+        if (!$this->platform_source) {
+            $this->getPlatFormSourceConfig();
+        }
     }
 
 }

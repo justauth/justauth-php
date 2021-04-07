@@ -15,7 +15,7 @@ trait AuthRequestConfig
 
     public function getPlatFormParamsConfig()
     {
-        Config::loadFiles(__DIR__);
+        Config::loadFiles(__DIR__.'/../Config');
         $platform_params = Config::get('auth_config');
         $this->platform_params = $platform_params;
         return $platform_params;
@@ -23,7 +23,7 @@ trait AuthRequestConfig
 
     public function getPlatFormSourceConfig()
     {
-        Config::loadFiles(__DIR__);
+        Config::loadFiles(__DIR__.'/../Config');
         $platform_source = Config::get('auth_default_source');
         $this->platform_source = $platform_source;
         return $platform_source;

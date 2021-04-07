@@ -5,4 +5,4 @@
  */
 
 require __DIR__ . '/../common.php';
-var_dump(\JustAuth\AuthRequest::GithubOAuth2());
+var_dump(\JustAuth\AuthRequest::GithubOAuth2(['123123']));

@@ -81,11 +81,8 @@ abstract class Common
      * @param null $appSecret
      * @param null $callbackUrl
      */
-    public function __construct($appid = null, $appSecret = null, $callbackUrl = null)
+    public function __construct()
     {
-        $this->appid = $appid;
-        $this->appSecret = $appSecret;
-        $this->callbackUrl = $callbackUrl;
         $this->http_driver();
     }
 
@@ -127,4 +124,13 @@ abstract class Common
      */
     abstract public function getAuthUrl($callbackUrl = null, $state = null, $scope = null);
 
+    /**
+     *  如果没有配置 跳出登录页面
+     */
+    public static function displayLoginAgent()
+    {
+        $ref = new \ReflectionClass(static::class);
+        var_dump($ref);exit();
+        echo file_get_contents(\dirname($ref->getFileName()) . '/loginAgent.html');
+    }
 }

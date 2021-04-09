@@ -22,6 +22,15 @@ return [
         'accessToken' => "https://api.weibo.com/oauth2/access_token",
         'userInfo'    => "https://api.weibo.com/2/users/show.json",
         'revoke'      => "https://api.weibo.com/oauth2/revokeoauth2",
+    ],
+
+    /**
+     * 码云
+     */
+    "GITEE"  => [
+        "authorize" =>"https://gitee.com/oauth/authorize",
+        "accessToken" =>"https://gitee.com/oauth/token",
+        "userInfo" =>"https://gitee.com/api/v5/user"
     ]
 ];
 

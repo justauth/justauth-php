@@ -13,7 +13,7 @@ class AuthRequest
 {
     protected $link;
 
-    protected function driver()
+    protected function driver(): AuthRequest
     {
         $this->link = new Base();
         return $this;

@@ -6,28 +6,29 @@
 
 namespace JustAuth\Source;
 
+use http\Exception\InvalidArgumentException;
+
 class Base
 {
     use AuthRequestConfig;
 
-    /**
-     *  github 登录
-     * @param array $arguments
-     */
-    public function GithubOAuth2(array $arguments = [])
-    {
-        $this->_init_config();
-        var_dump($this->platform_params);
-    }
+    private $driver = ['gitee', 'github'];
+    protected $config = [
+        'client_id'     => '',
+        'redirect_uri'  => '',
+        'client_secret' => '',
+    ];
 
-    /**
-     * @param array $arguments
-     * @return Gitee\OAuth2
-     */
-    public function GiteeOAuth2(array $arguments = []): Gitee\OAuth2
+    public function OAuth2($driver)
     {
-        $this->_init_config();
-        return new \JustAuth\Source\Gitee\OAuth2($this->platform_source, $this->platform_params);
+        if (array_key_exists($driver, $this->config)) {
+            $this->config = $this->config[$driver];
+        }
+        try {
+            $this->verified($driver);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     private function _init_config()
@@ -37,6 +38,22 @@ class Base
         }
         if (!$this->platform_source) {
             $this->getPlatFormSourceConfig();
+        }
+    }
+
+    private function verified($driver) :void
+    {
+        $parameter = ['client_id', 'redirect_uri', 'client_secret'];
+
+        if (!in_array($driver, $this->driver)) {
+            throw new InvalidArgumentException('目前不支持该平台');
+        }
+        if ('microsoft' == $driver) {
+            array_push($parameter, 'region');
+        }
+
+        if (false == Helpers::intendedEffect(array_keys($this->config), $parameter)) {
+            throw new InvalidArgumentException('配置信息错误');
         }
     }
 

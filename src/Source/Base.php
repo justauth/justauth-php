@@ -6,53 +6,62 @@
 
 namespace JustAuth\Source;
 
-use http\Exception\InvalidArgumentException;
+
+use JustAuth\Exception\InvalidArgumentException;
+use JustAuth\Exception\PlatFormException;
 
 class Base
 {
     use AuthRequestConfig;
 
     private $driver = ['gitee', 'github'];
-    protected $config = [
-        'client_id'     => '',
-        'redirect_uri'  => '',
-        'client_secret' => '',
-    ];
+    protected $config = [];
+    protected $api_url = [];
 
-    public function OAuth2($driver)
+    /**
+     * @param $driver
+     * @return AuthApi
+     * @throws InvalidArgumentException
+     * @throws PlatFormException
+     */
+    public function OAuth2($driver): AuthApi
     {
-        if (array_key_exists($driver, $this->config)) {
-            $this->config = $this->config[$driver];
-        }
+        $this->_init_config($driver);
+        $this->config = $this->platform_params;
+        $this->api_url = $this->platform_source;
         try {
             $this->verified($driver);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
+            return new AuthApi($driver,$this->config,$this->api_url);
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException($e->getMessage(), $e->getCode());
+        } catch (PlatFormException $e) {
+            throw new PlatFormException($e->getMessage(), $e->getCode());
         }
     }
 
-    private function _init_config()
+    private function _init_config($driver)
     {
         if (!$this->platform_params) {
-            $this->getPlatFormParamsConfig();
+            $this->getPlatFormParamsConfig($driver);
         }
         if (!$this->platform_source) {
-            $this->getPlatFormSourceConfig();
+            $this->getPlatFormSourceConfig($driver);
         }
     }
 
-    private function verified($driver) :void
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function verified($driver): void
     {
         $parameter = ['client_id', 'redirect_uri', 'client_secret'];
-
         if (!in_array($driver, $this->driver)) {
             throw new InvalidArgumentException('目前不支持该平台');
         }
-        if ('microsoft' == $driver) {
-            array_push($parameter, 'region');
+        if (count($this->config) <= 0) {
+            throw new InvalidArgumentException('配置信息错误');
         }
-
-        if (false == Helpers::intendedEffect(array_keys($this->config), $parameter)) {
+        if ([] != array_diff(array_keys($this->config), $parameter)) {
             throw new InvalidArgumentException('配置信息错误');
         }
     }

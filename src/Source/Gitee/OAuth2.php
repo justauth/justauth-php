@@ -11,20 +11,45 @@ use JustAuth\Source\Common;
 
 class OAuth2 extends Common
 {
-    /**
-     * OAuth2 constructor.
-     * @param null $platform_source
-     * @param null $platform_params
-     */
-    public function __construct($platform_source = null, $platform_params = null)
+
+    public function __construct($platform_config, $platform_source)
     {
-        $this->appid = $platform_params['gitee']['AppId'];
-        $this->appSecret = $platform_params['gitee']['AppKey'];
-        $this->callbackUrl = $platform_params['gitee']['CallBackUrl'];
+        parent::__construct($platform_config,$platform_source);
     }
 
-    public function getAuthUrl($callbackUrl = null, $state = null, $scope = null)
+    public function authorization()
     {
-        
+        $auth_url = $this->source_url['authorize'];
+        $query = array_filter([
+            'client_id' => $this->config['client_id'],
+            'redirect_uri' => $this->config['redirect_uri'],
+            'response_type' => 'code',
+        ]);
+        $url = $auth_url.'?'.http_build_query($query);
+        header('Location:'.$url);
+        exit();
+    }
+
+    public function getAccessToken()
+    {
+        $token_url = $this->source_url['accessToken'];
+        $query = array_filter([
+            'client_id' => $this->config['client_id'],
+            'redirect_uri' => $this->config['redirect_uri'],
+            'code' => request('code'),
+            'grant_type' => 'authorization_code',
+            'client_secret' => $this->config['client_secret'],
+        ]);
+        return $this->http->request('POST', $token_url, [
+            'query' => $query,
+        ])->getBody()->getContents();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserInfo()
+    {
+        // TODO: Implement getUserInfo() method.
     }
 }

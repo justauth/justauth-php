@@ -13,19 +13,25 @@ trait AuthRequestConfig
     protected $platform_params = [];
     protected $platform_source = [];
 
-    public function getPlatFormParamsConfig()
+    public function getPlatFormParamsConfig($driver) :array
     {
-        Config::loadFiles(__DIR__.'/../Config');
-        $platform_params = Config::get('auth_config');
-        $this->platform_params = $platform_params;
-        return $platform_params;
+        Config::loadFiles(dirname(__DIR__) . '/../config');
+        $platform_params = Config::get('oauth');
+        $this->platform_params = $platform_params[$driver];
+        if (isset($platform_params[$driver])) {
+            return $platform_params[$driver];
+        }
+        return [];
     }
 
-    public function getPlatFormSourceConfig()
+    public function getPlatFormSourceConfig($driver) :array
     {
         Config::loadFiles(__DIR__.'/../Config');
         $platform_source = Config::get('auth_default_source');
-        $this->platform_source = $platform_source;
-        return $platform_source;
+        $this->platform_source = $platform_source[$driver];
+        if (isset($platform_source[$driver])) {
+            return $platform_source[$driver];
+        }
+        return [];
     }
 }

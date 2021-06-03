@@ -4,12 +4,12 @@
  * @date 2021年04月07日 上午10:55
  */
 
-namespace JustAuth\Source;
+namespace JustAuth\Request\Source;
 
 
 use GuzzleHttp\Client;
 
-abstract class Common
+abstract class AuthCommonRequest
 {
 
     /**
@@ -85,6 +85,6 @@ abstract class Common
 
     abstract public function getAccessToken();
 
-    abstract public function getUserInfo();
+    abstract public function getUserInfo($access_token);
 
 }

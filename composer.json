@@ -16,7 +16,9 @@
     "ext-json": "*",
     "symfony/psr-http-message-bridge": "^2.0",
     "ext-openssl": "*",
-    "nancheng/pfinal-config": "dev-master"
+    "nancheng/pfinal-config": "^v0.1",
+    "nancheng/pfinal-request": "v0.13",
+    "ext-spltype": "*"
   },
   "autoload": {
     "psr-4": {

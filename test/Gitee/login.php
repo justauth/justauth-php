@@ -6,7 +6,8 @@
 require __DIR__ . '/../common.php';
 try {
     $gitee = \JustAuth\AuthRequest::OAuth2('gitee');
-    var_dump($gitee->authorization());
+    # 授权登录
+    var_dump($gitee->authorization());exit();
 } catch (\Exception $e) {
     echo $e->getMessage()."\n";
 }

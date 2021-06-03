@@ -7,7 +7,7 @@
 namespace JustAuth;
 
 
-use JustAuth\Source\Base;
+use JustAuth\Request\AuthBase;
 
 class AuthRequest
 {
@@ -15,7 +15,7 @@ class AuthRequest
 
     protected function driver(): AuthRequest
     {
-        $this->link = new Base();
+        $this->link = new AuthBase();
         return $this;
     }
 

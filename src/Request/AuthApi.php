@@ -4,7 +4,7 @@
  * @date 2021年06月01日 上午10:40
  */
 
-namespace JustAuth\Source;
+namespace JustAuth\Request;
 
 
 use JustAuth\Exception\PlatFormException;
@@ -13,7 +13,7 @@ class AuthApi
 {
     protected $api;
     protected $driver;
-    private $base_api_name_space = 'JustAuth\Source\\';
+    private $base_api_name_space = 'JustAuth\Request\Source\\';
 
     /**
      * AuthApi constructor.
@@ -26,7 +26,7 @@ class AuthApi
     {
         $this->driver = $driver;
         $platform = ucfirst(strtolower($driver));
-        $className = $this->base_api_name_space.$platform.'\OAuth2';
+        $className = $this->base_api_name_space.'Auth'.$platform.'Request';
         if(!class_exists($className)) {
             throw new PlatFormException('平台未定义');
         }

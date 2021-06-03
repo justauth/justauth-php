@@ -18,6 +18,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/psr-http-message-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nancheng/pfinal-config" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nancheng/pfinal-encryption" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nancheng/pfinal-cookie" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nancheng/pfinal-array" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nancheng/pfinal-request" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

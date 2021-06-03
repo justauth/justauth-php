@@ -4,12 +4,11 @@
  * @date 2021年04月09日 下午2:14
  */
 
-namespace JustAuth\Source\Gitee;
+namespace JustAuth\Request\Source;
 
+use pf\request\Request;
 
-use JustAuth\Source\Common;
-
-class OAuth2 extends Common
+class AuthGiteeRequest extends AuthCommonRequest
 {
 
     public function __construct($platform_config, $platform_source)
@@ -17,6 +16,9 @@ class OAuth2 extends Common
         parent::__construct($platform_config,$platform_source);
     }
 
+    /**
+     *  获取授权跳转 执行重定向
+     */
     public function authorization()
     {
         $auth_url = $this->source_url['authorize'];
@@ -30,13 +32,17 @@ class OAuth2 extends Common
         exit();
     }
 
+    /**
+     * 获取Token
+     * @return mixed
+     */
     public function getAccessToken()
     {
         $token_url = $this->source_url['accessToken'];
         $query = array_filter([
             'client_id' => $this->config['client_id'],
             'redirect_uri' => $this->config['redirect_uri'],
-            'code' => request('code'),
+            'code' => Request::get('code'),
             'grant_type' => 'authorization_code',
             'client_secret' => $this->config['client_secret'],
         ]);
@@ -46,10 +52,13 @@ class OAuth2 extends Common
     }
 
     /**
+     * 获取用户信息
+     * @param $access_token
      * @return mixed
      */
-    public function getUserInfo()
+    public function getUserInfo($access_token)
     {
-        // TODO: Implement getUserInfo() method.
+        $user_info_url = $this->source_url['userInfo'];
+        return json_decode($this->http->get($user_info_url)->getBody()->getContents());
     }
 }

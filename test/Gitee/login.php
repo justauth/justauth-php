@@ -8,7 +8,7 @@ try {
     $config_path = __DIR__.'/../../config/oauth.php';
     $gitee = \JustAuth\AuthRequest::OAuth2($config_path,'gitee');
     # 授权登录
-    var_dump($gitee->authorization());exit();
+    $gitee->authorization();
 } catch (\Exception $e) {
     echo $e->getMessage()."\n";
 }

@@ -14,6 +14,8 @@ class AuthDefaultSource
 {
 
     public $gitee;
+    public $github;
+    public $weibo;
 
     public function __construct()
     {
@@ -31,6 +33,43 @@ class AuthDefaultSource
             public function userInfo(): string
             {
                 return "https://gitee.com/api/v5/user";
+            }
+        };
+        $this->github = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://github.com/login/oauth/authorize";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://github.com/login/oauth/access_token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://api.github.com/user";
+            }
+        };
+        $this->weibo = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://api.weibo.com/oauth2/authorize";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://api.weibo.com/oauth2/access_token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://api.weibo.com/2/users/show.json";
+            }
+
+            public function userId(): string
+            {
+                return "https://api.weibo.com/oauth2/get_token_info?access_token=";
             }
         };
     }

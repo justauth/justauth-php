@@ -7,32 +7,43 @@
 namespace JustAuth\Config;
 
 
-use pf\config\Config;
-use pf\enum\Enum;
+use JustAuth\Enums\AuthResponseStatus;
+use JustAuth\Exception\AuthException;
 
-class AuthDefaultSource extends AuthSource
+class AuthDefaultSource
 {
-    public function authorize($driver)
+
+    public $gitee;
+
+    public function __construct()
     {
-        self::_init_config($driver);
-        var_dump($driver);exit();
+        $this->gitee = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://gitee.com/oauth/authorize";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://gitee.com/oauth/token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://gitee.com/api/v5/user";
+            }
+        };
     }
 
-    public function accessToken($driver)
+    /**
+     * @param $driver
+     * @return mixed
+     */
+    public function getConfig($driver)
     {
-    }
-
-
-    public function userInfo($driver)
-    {
-
-    }
-
-    public function _init_config($driver)
-    {
-        Config::loadFiles(__DIR__.'/auth_default_source.php');
-        $config = Config::all();
-        var_dump($config);exit();
-        var_dump($driver);exit();
+        if (!property_exists(self::class, $driver)) {
+            throw new AuthException(AuthResponseStatus::CONFIG_SOURCE_ERROR());
+        }
+        return $this->$driver;
     }
 }

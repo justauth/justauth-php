@@ -10,36 +10,47 @@ namespace JustAuth\Request;
 use JustAuth\Config\AuthDefaultSource;
 use JustAuth\Enums\AuthResponseStatus;
 use JustAuth\Exception\AuthException;
+use pf\config\Config;
 
 class AuthBase
 {
     private $driver = ['gitee', 'github'];
+    protected $source_config;
     protected $config = [];
-    protected $api_url = [];
+    public function __construct()
+    {
+        $this->source_config = new AuthDefaultSource();
+    }
 
-    public function OAuth2($driver): AuthApi
+    public function OAuth2($config,$driver): AuthApi
     {
         try {
-            // 加载配置文件
-            AuthDefaultSource::authorize($driver);
+            # 加载配置文件
+            $source_config = $this->source_config->getConfig($driver);
+            $this->config = $this->get_config($config,$driver);
             $this->verified($driver);
+            return new AuthApi($driver,$this->config,$source_config);
         } catch (AuthException $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
 
 
+    protected function get_config($config_path,$driver) {
+        if (!file_exists($config_path)) {
+            throw new AuthException(AuthResponseStatus::CONFIG_ERROR());
+        }
+        $config = require_once $config_path;
+        if (!isset($config[$driver])) {
+            throw new AuthException(AuthResponseStatus::CONFIG_ERROR());
+        }
+        return $config[$driver];
+    }
+
     private function verified($driver): void
     {
-        $parameter = ['client_id', 'redirect_uri', 'client_secret'];
         if (!in_array($driver, $this->driver)) {
             throw new AuthException(AuthResponseStatus::NOT_IMPLEMENTED());
-        }
-        if (count($this->config) <= 0) {
-            throw new AuthException(AuthResponseStatus::CONFIG_ERROR());
-        }
-        if ([] != array_diff(array_keys($this->config), $parameter)) {
-            throw new AuthException(AuthResponseStatus::CONFIG_ERROR());
         }
     }
 

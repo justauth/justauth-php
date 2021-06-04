@@ -10,18 +10,12 @@ use pf\request\Request;
 
 class AuthGiteeRequest extends AuthCommonRequest
 {
-
-    public function __construct($platform_config, $platform_source)
-    {
-        parent::__construct($platform_config,$platform_source);
-    }
-
     /**
      *  获取授权跳转 执行重定向
      */
     public function authorization()
     {
-        $auth_url = $this->source_url['authorize'];
+        $auth_url = $this->source_url->authorize();
         $query = array_filter([
             'client_id' => $this->config['client_id'],
             'redirect_uri' => $this->config['redirect_uri'],
@@ -32,13 +26,10 @@ class AuthGiteeRequest extends AuthCommonRequest
         exit();
     }
 
-    /**
-     * 获取Token
-     * @return mixed
-     */
+
     public function getAccessToken()
     {
-        $token_url = $this->source_url['accessToken'];
+        $token_url = $this->source_url->accessToken();
         $query = array_filter([
             'client_id' => $this->config['client_id'],
             'redirect_uri' => $this->config['redirect_uri'],
@@ -58,7 +49,7 @@ class AuthGiteeRequest extends AuthCommonRequest
      */
     public function getUserInfo($access_token)
     {
-        $user_info_url = $this->source_url['userInfo'];
+        $user_info_url = $this->source_url->userInfo();
         return json_decode($this->http->get($user_info_url)->getBody()->getContents());
     }
 }

@@ -17,7 +17,7 @@ class AuthApi
     protected $driver;
     private $base_api_name_space = 'JustAuth\Request\Source\\';
 
-    public function __construct($driver, array $config, array $url)
+    public function __construct($driver, array $config,$url)
     {
         $this->driver = $driver;
         $platform = ucfirst(strtolower($driver));

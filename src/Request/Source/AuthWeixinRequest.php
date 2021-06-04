@@ -8,7 +8,7 @@ namespace JustAuth\Request\Source;
 
 use pf\request\Request;
 
-class AuthWeiboRequest extends AuthCommonRequest
+class AuthWeixinRequest extends AuthCommonRequest
 {
     public function authorization()
     {

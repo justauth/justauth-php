@@ -16,6 +16,7 @@ class AuthDefaultSource
     public $gitee;
     public $github;
     public $weibo;
+    public $weixin;
 
     public function __construct()
     {
@@ -70,6 +71,22 @@ class AuthDefaultSource
             public function userId(): string
             {
                 return "https://api.weibo.com/oauth2/get_token_info?access_token=";
+            }
+        };
+        $this->weixin = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://open.weixin.qq.com/connect/qrconnect";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://api.weixin.qq.com/sns/oauth2/access_token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://api.weixin.qq.com/sns/userinfo";
             }
         };
     }

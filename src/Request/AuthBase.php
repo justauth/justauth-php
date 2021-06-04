@@ -7,6 +7,7 @@
 namespace JustAuth\Request;
 
 
+use JustAuth\Config\AuthDefaultSource;
 use JustAuth\Enums\AuthResponseStatus;
 use JustAuth\Exception\AuthException;
 
@@ -19,9 +20,10 @@ class AuthBase
     public function OAuth2($driver): AuthApi
     {
         try {
+            // 加载配置文件
+            AuthDefaultSource::authorize($driver);
             $this->verified($driver);
         } catch (AuthException $e) {
-            var_dump($e->getMessage());exit();
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
@@ -31,13 +33,13 @@ class AuthBase
     {
         $parameter = ['client_id', 'redirect_uri', 'client_secret'];
         if (!in_array($driver, $this->driver)) {
-            throw new AuthException(AuthResponseStatus::NOT_IMPLEMENTED);
+            throw new AuthException(AuthResponseStatus::NOT_IMPLEMENTED());
         }
         if (count($this->config) <= 0) {
-            throw new AuthException(AuthResponseStatus::CONFIG_ERROR);
+            throw new AuthException(AuthResponseStatus::CONFIG_ERROR());
         }
         if ([] != array_diff(array_keys($this->config), $parameter)) {
-            throw new AuthException(AuthResponseStatus::CONFIG_ERROR);
+            throw new AuthException(AuthResponseStatus::CONFIG_ERROR());
         }
     }
 

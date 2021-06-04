@@ -13,20 +13,20 @@ use JustAuth\Exception\AuthException;
 abstract class AuthSource
 {
 
-    abstract public function authorize();
+    abstract public function authorize($driver);
 
-    abstract public function accessToken();
+    abstract public function accessToken($driver);
 
-    abstract public function userInfo();
+    abstract public function userInfo($driver);
 
     public function revoke()
     {
-        throw new AuthException(AuthResponseStatus::UNSUPPORTED);
+        throw new AuthException(AuthResponseStatus::UNSUPPORTED());
     }
 
     public function refresh()
     {
-        throw new AuthException(AuthResponseStatus::UNSUPPORTED);
+        throw new AuthException(AuthResponseStatus::UNSUPPORTED());
     }
 
     public function getConfigName()

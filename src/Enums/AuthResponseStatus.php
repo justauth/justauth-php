@@ -7,27 +7,34 @@
 namespace JustAuth\Enums;
 
 
-class AuthResponseStatus extends \SplEnum
+use pf\enum\Enum;
+
+class AuthResponseStatus extends Enum
 {
-    /**
-     * 2000：正常；
-     * other：调用异常
-     */
-    const SUCCESS = [2000, "Success"];
-    const FAILURE = [5000, "Failure"];
-    const NOT_IMPLEMENTED = [5001, "Not Implemented"];
-    const PARAMETER_INCOMPLETE = [5002, "Parameter incomplete"];
-    const UNSUPPORTED = [5003, "Unsupported operation"];
-    const NO_AUTH_SOURCE = [5004, "AuthDefaultSource cannot be null"];
-    const UNIDENTIFIED_PLATFORM = [5005, "Unidentified platform"];
-    const ILLEGAL_REDIRECT_URI = [5006, "Illegal redirect uri"];
-    const ILLEGAL_REQUEST = [5007, "Illegal request"];
-    const ILLEGAL_CODE = [5008, "Illegal code"];
-    const ILLEGAL_STATUS = [5009, "Illegal state"];
-    const REQUIRED_REFRESH_TOKEN = [5010, "The refresh token is required; it must not be null"];
-
-    const CONFIG_ERROR = [5011,"Incorrect configuration information"];
-
+    /** @msg('success') */
+    const SUCCESS = 2000;
+    /** @msg('FAILURE') */
+    const FAILURE = 5000;
+    /** @msg('Not Implemented') */
+    const NOT_IMPLEMENTED = 5001;
+    /** @msg('Parameter incomplete') */
+    const PARAMETER_INCOMPLETE = 5002;
+    /** @msg('Unsupported operation') */
+    const UNSUPPORTED = 5003;
+    /** @msg('AuthDefaultSource cannot be null') */
+    const NO_AUTH_SOURCE = 5004;
+    /** @msg('Unidentified platform') */
+    const UNIDENTIFIED_PLATFORM = 5005;
+    /** @msg('Illegal redirect uri') */
+    const ILLEGAL_REDIRECT_URI = 5006;
+    /** @msg('Illegal request') */
+    const ILLEGAL_REQUEST = 5007;
+    /** @msg('Illegal code') */
+    const ILLEGAL_CODE = 5008;
+    /** @msg('Illegal state') */
+    const ILLEGAL_STATUS = 5009;
+    /** @msg('Config Error') */
+    const CONFIG_ERROR=5010;
 
 
 }

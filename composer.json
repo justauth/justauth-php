@@ -1,6 +1,6 @@
 {
   "name": "pfinal/justauth-php",
-  "description": "description",
+  "description": "library of third-party authorized login",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [

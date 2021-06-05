@@ -19,6 +19,9 @@
     "nancheng/pfinal-request": "v0.13",
     "nancheng/pfinal-enum": "v0.1"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
   "autoload": {
     "psr-4": {
       "JustAuth\\": "src/"
@@ -29,5 +32,8 @@
     "psr-4": {
       "JustAuth\\Tests\\": "test/"
     }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
   }
 }

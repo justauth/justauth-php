@@ -23,4 +23,5 @@
 hs_err_pid*
 
 /vendor/
-.idea
+.idea/
+.phpunit.*

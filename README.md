@@ -17,7 +17,6 @@ PHP 版 JustAuth
 - [ ]  支持 淘宝 平台
 - [ ]  支持 Google 平台
 
-
 # JustAuth 项目一览
 
 ## 已完成
@@ -30,4 +29,4 @@ PHP 版 JustAuth
  [Python 版](https://github.com/justauth/justauth-python)（未开始）
  [Go 版](https://github.com/justauth/justauth-go)（未开始）
  [Node 版](https://github.com/justauth/justauth-node)（未开始）
- [PHP 版](https://github.com/justauth/justauth-php)（未开始）
+ [PHP 版](https://github.com/justauth/justauth-php)（开始）

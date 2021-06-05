@@ -13,9 +13,9 @@ JustAuth 到如今以获得关注：![](https://img.shields.io/github/stars/zhan
 
 - fork 本项目到自己的 repo 。注意：一定要先 fork 到自己的仓库哦
 - 把 fork 过去的项目也就是你仓库中的项目 clone 到你本地
-- 修改代码（ `dev` 分支）
+- 修改代码（ `develop` 分支）
 - commit & push 到自己的仓库
-- 发起 PR（pull request） 请求，提交到本项目的 dev 分支
+- 发起 PR（pull request） 请求，提交到本项目的 develop 分支
 - 等待管理员合并
 
 

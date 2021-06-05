@@ -64,7 +64,7 @@ abstract class AuthCommonRequest
 
     public $http = null;
 
-    public function __construct(array $config, AuthSource $source = null)
+    public function __construct(array $config, AuthSource $source)
     {
         $this->http_driver();
         $this->source_url = $source;

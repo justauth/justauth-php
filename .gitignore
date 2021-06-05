@@ -23,4 +23,6 @@
 hs_err_pid*
 
 /vendor/
-.idea
+.idea/
+.phpunit.*
+composer.lock

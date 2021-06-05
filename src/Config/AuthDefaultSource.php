@@ -89,6 +89,22 @@ class AuthDefaultSource
                 return "https://api.weixin.qq.com/sns/userinfo";
             }
         };
+        $this->douyin = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://open.douyin.com/platform/oauth/connect/";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://open.douyin.com/oauth/access_token/";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://open.douyin.com/oauth/userinfo/";
+            }
+        };
     }
 
     /**

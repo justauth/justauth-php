@@ -14,33 +14,35 @@ use pf\config\Config;
 
 class AuthBase
 {
-    private $driver = ['gitee', 'github','weibo'];
+    protected $driver = ['gitee', 'github', 'weibo'];
     protected $source_config;
     protected $config = [];
+
     public function __construct()
     {
         $this->source_config = new AuthDefaultSource();
     }
 
-    public function OAuth2($config,$driver): AuthApi
+    public function OAuth2($config, $driver): AuthApi
     {
         try {
             # 加载配置文件
             $source_config = $this->source_config->getConfig($driver);
-            $this->config = $this->get_config($config,$driver);
+            $this->config = $this->get_config($config, $driver);
             $this->verified($driver);
-            return new AuthApi($driver,$this->config,$source_config);
+            return new AuthApi($driver, $this->config, $source_config);
         } catch (AuthException $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
 
 
-    protected function get_config($config_path,$driver) {
+    protected function get_config($config_path, $driver)
+    {
         if (!file_exists($config_path)) {
             throw new AuthException(AuthResponseStatus::CONFIG_ERROR());
         }
-        $config = require_once $config_path;
+        $config = require $config_path;
         if (!isset($config[$driver])) {
             throw new AuthException(AuthResponseStatus::CONFIG_ERROR());
         }

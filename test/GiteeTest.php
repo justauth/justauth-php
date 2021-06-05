@@ -4,14 +4,14 @@ namespace JustAuth\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-class GithubTest extends TestCase
+class GiteeTest extends TestCase
 {
     public function testInstance()
     {
-        $config_path = __DIR__ . '/../config/oauth.php';
-        $github = \JustAuth\AuthRequest::OAuth2($config_path, 'github');
-        $this->assertInstanceOf('JustAuth\Request\AuthApi', $github);
-        return $github;
+        $configPath = __DIR__ . '/../config/oauth.php';
+        $authRequest = \JustAuth\AuthRequest::OAuth2($configPath, 'gitee');
+        $this->assertInstanceOf('JustAuth\Request\AuthApi', $authRequest);
+        return $authRequest;
     }
 
 //    /**

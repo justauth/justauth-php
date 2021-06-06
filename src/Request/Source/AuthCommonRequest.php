@@ -8,6 +8,7 @@ namespace JustAuth\Request\Source;
 
 
 use GuzzleHttp\Client;
+use JustAuth\Config\AuthSource;
 
 abstract class AuthCommonRequest
 {
@@ -55,20 +56,19 @@ abstract class AuthCommonRequest
     public $loginAgentUrl;
 
     /**
-     * 接口地址
-     * @var array
+     * @var AuthSource
      */
-    public $source_url = [];
+    public $source_url;
 
     public $config = [];
 
     public $http = null;
 
-    public function __construct($config, $source)
+    public function __construct(array $config, AuthSource $source)
     {
         $this->http_driver();
         $this->source_url = $source;
-        $this->config = $config;
+        $this->config     = $config;
     }
 
     /**

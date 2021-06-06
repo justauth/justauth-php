@@ -34,9 +34,13 @@ class AuthResponseStatus extends Enum
     /** @msg('Illegal state') */
     const ILLEGAL_STATUS = 5009;
     /** @msg('Config Error') */
-    const CONFIG_ERROR=5010;
+    const CONFIG_ERROR = 5010;
     /** @msg('Config Source Error') */
-    const CONFIG_SOURCE_ERROR=5011;
+    const CONFIG_SOURCE_ERROR = 5011;
+    /** @msg('Get user openid eroor') * */
+    const GET_OPENID_ERROR = 5012;
+    /** @msg('Get user info eroor') * */
+    const GET_USERINFO_ERROR = 5013;
 
 
 }

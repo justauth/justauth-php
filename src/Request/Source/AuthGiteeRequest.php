@@ -16,13 +16,13 @@ class AuthGiteeRequest extends AuthCommonRequest
     public function authorization()
     {
         $auth_url = $this->source_url->authorize();
-        $query = array_filter([
-            'client_id' => $this->config['client_id'],
-            'redirect_uri' => $this->config['redirect_uri'],
+        $query    = array_filter([
+            'client_id'     => $this->config['client_id'],
+            'redirect_uri'  => $this->config['redirect_uri'],
             'response_type' => 'code',
         ]);
-        $url = $auth_url.'?'.http_build_query($query);
-        header('Location:'.$url);
+        $url      = $auth_url . '?' . http_build_query($query);
+        header('Location:' . $url);
         exit();
     }
 
@@ -30,11 +30,11 @@ class AuthGiteeRequest extends AuthCommonRequest
     public function getAccessToken()
     {
         $token_url = $this->source_url->accessToken();
-        $query = array_filter([
-            'client_id' => $this->config['client_id'],
-            'redirect_uri' => $this->config['redirect_uri'],
-            'code' => Request::get('code'),
-            'grant_type' => 'authorization_code',
+        $query     = array_filter([
+            'client_id'     => $this->config['client_id'],
+            'redirect_uri'  => $this->config['redirect_uri'],
+            'code'          => Request::get('code'),
+            'grant_type'    => 'authorization_code',
             'client_secret' => $this->config['client_secret'],
         ]);
         return $this->http->request('POST', $token_url, [

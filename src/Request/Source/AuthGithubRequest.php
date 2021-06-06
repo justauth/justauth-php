@@ -16,12 +16,12 @@ class AuthGithubRequest extends AuthCommonRequest
     public function authorization()
     {
         $auth_url = $this->source_url->authorize();
-        $query = array_filter([
-            'client_id' => $this->config['client_id'],
+        $query    = array_filter([
+            'client_id'    => $this->config['client_id'],
             'redirect_uri' => $this->config['redirect_url'],
         ]);
-        $url = $auth_url.'?'.http_build_query($query);
-        header('Location:'.$url);
+        $url      = $auth_url . '?' . http_build_query($query);
+        header('Location:' . $url);
         exit();
     }
 
@@ -29,10 +29,10 @@ class AuthGithubRequest extends AuthCommonRequest
     public function getAccessToken()
     {
         $token_url = $this->source_url->accessToken();
-        $query = array_filter([
-            'client_id' => $this->config['client_id'],
-            'redirect_uri' => $this->config['redirect_url'],
-            'code' => Request::get('code'),
+        $query     = array_filter([
+            'client_id'     => $this->config['client_id'],
+            'redirect_uri'  => $this->config['redirect_url'],
+            'code'          => Request::get('code'),
             'client_secret' => $this->config['client_secret'],
         ]);
         return $this->http->request('POST', $token_url, [
@@ -50,7 +50,7 @@ class AuthGithubRequest extends AuthCommonRequest
         $user_info_url = $this->source_url->userInfo();
         return json_decode($this->http->request('GET', $user_info_url, [
             'headers' => [
-                'Authorization' => 'Bearer '.$access_token,
+                'Authorization' => 'Bearer ' . $access_token,
             ],
         ])->getBody()->getContents());
     }

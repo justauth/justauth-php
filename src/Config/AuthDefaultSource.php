@@ -20,7 +20,7 @@ class AuthDefaultSource
 
     public function __construct()
     {
-        $this->gitee = new class extends AuthSource {
+        $this->gitee  = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://gitee.com/oauth/authorize";
@@ -52,7 +52,7 @@ class AuthDefaultSource
                 return "https://api.github.com/user";
             }
         };
-        $this->weibo = new class extends AuthSource {
+        $this->weibo  = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://api.weibo.com/oauth2/authorize";
@@ -103,6 +103,32 @@ class AuthDefaultSource
             public function userInfo(): string
             {
                 return "https://open.douyin.com/oauth/userinfo/";
+            }
+        };
+        $this->qq     = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://graph.qq.com/oauth2.0/authorize";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://graph.qq.com/oauth2.0/token?grant_type=authorization_code";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://graph.qq.com/user/get_user_info";
+            }
+
+            public function getUid()
+            {
+                return "https://graph.qq.com/oauth2.0/me?access_token=";
+            }
+
+            public function getUnionid()
+            {
+                return "https://graph.qq.com/oauth2.0/me?access_token=";
             }
         };
     }

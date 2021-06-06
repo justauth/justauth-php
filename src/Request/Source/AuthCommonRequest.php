@@ -10,7 +10,7 @@ namespace JustAuth\Request\Source;
 use GuzzleHttp\Client;
 use JustAuth\Config\AuthSource;
 
-abstract class AuthCommonRequest
+abstract class  AuthCommonRequest
 {
 
     /**

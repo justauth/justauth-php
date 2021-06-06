@@ -17,6 +17,9 @@ class AuthDefaultSource
     public $github;
     public $weibo;
     public $weixin;
+    public $douyin;
+    public $qq;
+    public $huawei;
 
     public function __construct()
     {
@@ -129,6 +132,22 @@ class AuthDefaultSource
             public function getUnionid()
             {
                 return "https://graph.qq.com/oauth2.0/me?access_token=";
+            }
+        };
+        $this->huawei = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://oauth-login.cloud.huawei.com/oauth2/v2/authorize";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://oauth-login.cloud.huawei.com/oauth2/v3/token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://api.cloud.huawei.com/rest.php?nsp_fmt=JSON&nsp_svc=huawei.oauth2.user.getTokenInfo";
             }
         };
     }

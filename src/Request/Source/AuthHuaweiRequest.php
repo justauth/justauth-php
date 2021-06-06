@@ -29,22 +29,31 @@ class AuthHuaweiRequest extends AuthCommonRequest
     public function getAccessToken()
     {
         $token_Url = $this->source_url->accessToken();
-        $query = array_filter([
-            'client_id' => $this->config['client_id'],
-            'code' => Request::get('code') ?? Request::get('authorization_code'),
-            'grant_type' => 'authorization_code',
+        $query     = array_filter([
+            'client_id'     => $this->config['client_id'],
+            'code'          => Request::get('code') ?? Request::get('authorization_code'),
+            'grant_type'    => 'authorization_code',
             'client_secret' => $this->config['client_secret'],
-            'redirect_uri' => $this->config['redirect_uri'],
+            'redirect_uri'  => $this->config['redirect_uri'],
         ]);
-        $res = json_decode($this->http->request('post', $token_Url, [
+        $res       = json_decode($this->http->request('post', $token_Url, [
             'form_params' => $query,
         ])->getBody()->getContents());
+        return $res->access_token;
 
     }
 
     public function getUserInfo($access_token)
     {
-        // TODO: Implement getUserInfo() method.
+        $user_info_url = $this->source_url->userInfo();
+        $query         = array_filter([
+            'openid' => 'OPENID',
+
+            'access_token' => $access_token,
+        ]);
+        return json_decode($this->http->request('POST', $user_info_url, [
+            'form_params' => $query,
+        ])->getBody()->getContents());
     }
 
 }

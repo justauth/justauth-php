@@ -20,6 +20,7 @@ class AuthDefaultSource
     public $douyin;
     public $qq;
     public $huawei;
+    public $google;
 
     public function __construct()
     {
@@ -124,12 +125,12 @@ class AuthDefaultSource
                 return "https://graph.qq.com/user/get_user_info";
             }
 
-            public function getUid()
+            public function getUid(): string
             {
                 return "https://graph.qq.com/oauth2.0/me?access_token=";
             }
 
-            public function getUnionid()
+            public function getUnionid(): string
             {
                 return "https://graph.qq.com/oauth2.0/me?access_token=";
             }
@@ -148,6 +149,27 @@ class AuthDefaultSource
             public function userInfo(): string
             {
                 return "https://api.cloud.huawei.com/rest.php?nsp_fmt=JSON&nsp_svc=huawei.oauth2.user.getTokenInfo";
+            }
+        };
+        $this->google = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://accounts.google.com/o/oauth2/token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://www.googleapis.com/oauth2/v1/userinfo";
+            }
+
+            public function scope(): string
+            {
+                return  "https://www.googleapis.com/auth/userinfo.profile";
             }
         };
     }

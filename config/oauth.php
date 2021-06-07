@@ -37,5 +37,10 @@ return [
         'client_secret' => env('HUAWEI_SECRET', ''),
         'scope'         => env('HUAWEI_SECRET', ''),
         'state'         => env('HUAWEI_STATE', ''),
+    ],
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID', '967030938781-cuj9u0mtqsvu1b6gb80v5gl0s27iiltm.apps.googleusercontent.com'),
+        'redirect_url'  => env('GOOGLE_CALLBACK', 'dev.local.justauth.cn/test/Web/index.php'),
+        'client_secret' => env('GOOGLE_SECRET', '9BBBRUWTaEswsOydqvzlX2GI'),
     ]
 ];

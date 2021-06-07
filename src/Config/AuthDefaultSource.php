@@ -21,6 +21,7 @@ class AuthDefaultSource
     public $qq;
     public $huawei;
     public $google;
+    public $baidu;
 
     public function __construct()
     {
@@ -170,6 +171,22 @@ class AuthDefaultSource
             public function scope(): string
             {
                 return  "https://www.googleapis.com/auth/userinfo.profile";
+            }
+        };
+        $this->baidu = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "http://openapi.baidu.com/oauth/2.0/authorize";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://accounts.google.com/o/oauth2/token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://openapi.baidu.com/rest/2.0/passport/users/getInfo";
             }
         };
     }

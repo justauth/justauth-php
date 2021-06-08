@@ -14,7 +14,7 @@ use pf\config\Config;
 
 class AuthBase
 {
-    protected $driver = ['gitee', 'github', 'weibo'];
+    private $driver = ['gitee', 'github', 'weibo', 'weixin', 'douyin', 'qq','huawei','google','baidu'];
     protected $source_config;
     protected $config = [];
 
@@ -23,12 +23,12 @@ class AuthBase
         $this->source_config = new AuthDefaultSource();
     }
 
-    public function OAuth2($config, $driver): AuthApi
+    public function OAuth2($config, $driver)
     {
         try {
             # 加载配置文件
             $source_config = $this->source_config->getConfig($driver);
-            $this->config = $this->get_config($config, $driver);
+            $this->config  = $this->get_config($config, $driver);
             $this->verified($driver);
             return new AuthApi($driver, $this->config, $source_config);
         } catch (AuthException $e) {

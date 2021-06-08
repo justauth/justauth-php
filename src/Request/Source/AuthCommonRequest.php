@@ -10,7 +10,7 @@ namespace JustAuth\Request\Source;
 use GuzzleHttp\Client;
 use JustAuth\Config\AuthSource;
 
-abstract class AuthCommonRequest
+abstract class  AuthCommonRequest
 {
 
     /**
@@ -68,7 +68,7 @@ abstract class AuthCommonRequest
     {
         $this->http_driver();
         $this->source_url = $source;
-        $this->config = $config;
+        $this->config     = $config;
     }
 
     /**

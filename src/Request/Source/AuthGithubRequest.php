@@ -7,7 +7,7 @@
 namespace JustAuth\Request\Source;
 
 use pf\request\Request;
-
+use JustAuth\Exception\AuthException;
 class AuthGithubRequest extends AuthCommonRequest
 {
     /**
@@ -47,11 +47,16 @@ class AuthGithubRequest extends AuthCommonRequest
      */
     public function getUserInfo($access_token)
     {
+        $access_data = [];
+        parse_str($access_token,$access_data);
+        if(count($access_data)<=0 || isset($access_data['error'])) {
+            throw new AuthException(401,$access_data['error_description']);
+        }
         $user_info_url = $this->source_url->userInfo();
         return json_decode($this->http->request('GET', $user_info_url, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $access_token,
+                'Authorization' => 'Bearer ' . $access_data['access_token'],
             ],
-        ])->getBody()->getContents());
+        ])->getBody()->getContents(),true);
     }
 }

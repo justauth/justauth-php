@@ -42,5 +42,4 @@ class AuthResponseStatus extends Enum
     /** @msg('Get user info eroor') * */
     const GET_USERINFO_ERROR = 5013;
 
-
 }

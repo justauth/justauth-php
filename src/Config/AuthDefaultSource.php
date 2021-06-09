@@ -54,7 +54,7 @@ class AuthDefaultSource
 
             public function userInfo(): string
             {
-                return "https://api.github.com/user";
+                return "https://api.github.com/user/repos";
             }
         };
         $this->weibo  = new class extends AuthSource {

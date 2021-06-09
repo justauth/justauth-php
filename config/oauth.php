@@ -1,14 +1,14 @@
 <?php
 return [
     'github' => [
-        'client_id'     => env('GITHUB_CLIENT_ID', 'f4687fdd6801354516b3'),
-        'redirect_uri'  => env('GITHUB_CALLBACK', 'dev.local.justauth.cn/test/Github/index.php'),
-        'client_secret' => env('GITHUB_SECRET', '03201d93b38f7eac722899420aaa35e6f375a8c4'),
+        'client_id'     => env('GITHUB_CLIENT_ID', ''),
+        'redirect_uri'  => env('GITHUB_CALLBACK', ''),
+        'client_secret' => env('GITHUB_SECRET', ''),
     ],
     'gitee'  => [
-        'client_id'     => env('GITEE_CLIENT_ID', ''),
-        'redirect_uri'  => env('GITEE_CALLBACK', ''),
-        'client_secret' => env('GITEE_SECRET', ''),
+        'client_id'     => env('GITEE_CLIENT_ID', '1b6f294f8a949a9eda9bc52d5c6514fdd61f7fdd05aec890f1611ba4281bf8e3'),
+        'client_secret' => env('GITEE_SECRET', 'b297579d782c289d1a1988f5886d7dbdfc4dc301a8b9edfa8977b4c153a42717'),
+        'redirect_uri'  => env('GITEE_CALLBACK', 'http://3646x08n70.zicp.vip/test/Web/giteecallback.php'),
     ],
     'weibo'  => [
         'client_id'     => env('WEIBO_CLIENT_ID', ''),
@@ -39,13 +39,13 @@ return [
         'state'         => env('HUAWEI_STATE', ''),
     ],
     'google' => [
-        'client_id'     => env('GOOGLE_CLIENT_ID', '967030938781-cuj9u0mtqsvu1b6gb80v5gl0s27iiltm.apps.googleusercontent.com'),
-        'redirect_uri'  => env('GOOGLE_CALLBACK', 'dev.local.justauth.cn/test/Web/index.php'),
-        'client_secret' => env('GOOGLE_SECRET', '9BBBRUWTaEswsOydqvzlX2GI'),
+        'client_id'     => env('GOOGLE_CLIENT_ID', ''),
+        'redirect_uri'  => env('GOOGLE_CALLBACK', ''),
+        'client_secret' => env('GOOGLE_SECRET', ''),
     ],
     'baidu'  => [
-        'client_id'    => env('BAIDU_CLIENT_ID', ''),
+        'client_id'    => env('BAIDU_CLIENT_ID', '24327410'),
         'redirect_uri' => env('BAIDU_CALLBACK', ''),
-        'client_secret' => env('GOOGLE_SECRET', ''),
+        'client_secret' => env('GOOGLE_SECRET', 'cylPe0ReyOEsxIdXpKDq5hFG69oGQ3AV'),
     ]
 ];

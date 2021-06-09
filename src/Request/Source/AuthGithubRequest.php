@@ -18,7 +18,7 @@ class AuthGithubRequest extends AuthCommonRequest
         $auth_url = $this->source_url->authorize();
         $query    = array_filter([
             'client_id'    => $this->config['client_id'],
-            'redirect_uri' => $this->config['redirect_url'],
+            'redirect_uri' => $this->config['redirect_uri'],
         ]);
         $url      = $auth_url . '?' . http_build_query($query);
         header('Location:' . $url);
@@ -31,7 +31,7 @@ class AuthGithubRequest extends AuthCommonRequest
         $token_url = $this->source_url->accessToken();
         $query     = array_filter([
             'client_id'     => $this->config['client_id'],
-            'redirect_uri'  => $this->config['redirect_url'],
+            'redirect_uri'  => $this->config['redirect_uri'],
             'code'          => Request::get('code'),
             'client_secret' => $this->config['client_secret'],
         ]);

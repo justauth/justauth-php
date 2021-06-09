@@ -181,7 +181,7 @@ class AuthDefaultSource
 
             public function accessToken(): string
             {
-                return "https://accounts.google.com/o/oauth2/token";
+                return "https://openapi.baidu.com/oauth/2.0/token";
             }
 
             public function userInfo(): string

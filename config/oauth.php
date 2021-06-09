@@ -44,8 +44,8 @@ return [
         'client_secret' => env('GOOGLE_SECRET', ''),
     ],
     'baidu'  => [
-        'client_id'    => env('BAIDU_CLIENT_ID', '24327410'),
-        'redirect_uri' => env('BAIDU_CALLBACK', ''),
+        'client_id'    => env('BAIDU_CLIENT_ID', '5W1Zf0nzztcdhwi0f5epcT0p'),
+        'redirect_uri' => env('BAIDU_CALLBACK', 'http://3646x08n70.zicp.vip/test/Web/baiducallback.php'),
         'client_secret' => env('GOOGLE_SECRET', 'cylPe0ReyOEsxIdXpKDq5hFG69oGQ3AV'),
     ]
 ];

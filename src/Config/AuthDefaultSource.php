@@ -22,6 +22,8 @@ class AuthDefaultSource
     public $huawei;
     public $google;
     public $baidu;
+    public $oschina;
+    public $stackoverflow;
 
     public function __construct()
     {
@@ -54,7 +56,7 @@ class AuthDefaultSource
 
             public function userInfo(): string
             {
-                return "https://api.github.com/user";
+                return "https://api.github.com/user/repos";
             }
         };
         $this->weibo  = new class extends AuthSource {
@@ -181,7 +183,7 @@ class AuthDefaultSource
 
             public function accessToken(): string
             {
-                return "https://accounts.google.com/o/oauth2/token";
+                return "https://openapi.baidu.com/oauth/2.0/token";
             }
 
             public function userInfo(): string
@@ -189,6 +191,39 @@ class AuthDefaultSource
                 return "https://openapi.baidu.com/rest/2.0/passport/users/getInfo";
             }
         };
+        $this->oschina = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://www.oschina.net/action/oauth2/authorize";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://www.oschina.net/action/openapi/token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://www.oschina.net/action/openapi/my_information";
+            }
+        };
+        $this->stackoverflow = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://stackoverflow.com/oauth";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://stackoverflow.com/oauth/access_token/json";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://api.stackexchange.com/2.2/me";
+            }
+        };
+
     }
 
     /**

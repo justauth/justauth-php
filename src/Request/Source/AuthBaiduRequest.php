@@ -19,8 +19,7 @@ class AuthBaiduRequest extends AuthCommonRequest
         $query    = array_filter([
             'response_type' => 'code',
             'client_id'     => $this->config['client_id'],
-            'redirect_uri'  => urlencode($this->config['redirect_uri']),
-            'scope'         => 'email',
+            'redirect_uri'  => $this->config['redirect_uri'],
             'display'       => 'popup'
         ]);
         $url      = $auth_url . '?' . http_build_query($query);
@@ -38,19 +37,26 @@ class AuthBaiduRequest extends AuthCommonRequest
             'client_secret' => $this->config['client_secret'],
             'redirect_uri'  => $this->config['redirect_uri'],
         ]);
-        return $this->http->request('POST', $token_url, [
-            'query' => $query,
-        ])->getBody()->getContents();
+        try {
+            return $this->http->request('POST', $token_url, [
+                'query' => $query,
+            ])->getBody()->getContents();
+        } catch (\Throwable $throwable) {
+            var_dump($throwable->getCode());
+            throw new AuthException($throwable->getCode(), $throwable->getMessage());
+        }
+
     }
 
     public function getUserInfo($access_token)
     {
+        $access_data   = json_decode($access_token);
         $user_info_url = $this->source_url->userInfo();
         $query         = array_filter([
-            'access_token' => $access_token,
+            'access_token' => $access_data->access_token
         ]);
         return json_decode($this->http->request('GET', $user_info_url, [
             'query' => $query,
-        ])->getBody()->getContents());
+        ])->getBody()->getContents(),true);
     }
 }

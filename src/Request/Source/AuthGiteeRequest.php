@@ -7,6 +7,7 @@
 namespace JustAuth\Request\Source;
 
 use pf\request\Request;
+use JustAuth\Exception\AuthException;
 
 class AuthGiteeRequest extends AuthCommonRequest
 {
@@ -37,9 +38,13 @@ class AuthGiteeRequest extends AuthCommonRequest
             'grant_type'    => 'authorization_code',
             'client_secret' => $this->config['client_secret'],
         ]);
-        return $this->http->request('POST', $token_url, [
-            'query' => $query,
-        ])->getBody()->getContents();
+        try {
+            return $this->http->request('POST', $token_url, [
+                'query' => $query,
+            ])->getBody()->getContents();
+        }catch (\Throwable $throwable) {
+            throw new AuthException($throwable->getCode(),$throwable->getMessage());
+        }
     }
 
     /**
@@ -49,7 +54,13 @@ class AuthGiteeRequest extends AuthCommonRequest
      */
     public function getUserInfo($access_token)
     {
+        $access_data = json_decode($access_token);
         $user_info_url = $this->source_url->userInfo();
-        return json_decode($this->http->get($user_info_url)->getBody()->getContents());
+        $query     = array_filter([
+            'access_token'=>$access_data->access_token
+        ]);
+        return json_decode($this->http->request('GET', $user_info_url, [
+            'query' => $query
+        ])->getBody()->getContents(),true);
     }
 }

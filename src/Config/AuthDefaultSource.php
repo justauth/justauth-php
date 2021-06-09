@@ -23,6 +23,7 @@ class AuthDefaultSource
     public $google;
     public $baidu;
     public $oschina;
+    public $stackoverflow;
 
     public function __construct()
     {
@@ -206,6 +207,23 @@ class AuthDefaultSource
                 return "https://www.oschina.net/action/openapi/my_information";
             }
         };
+        $this->stackoverflow = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://stackoverflow.com/oauth";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://stackoverflow.com/oauth/access_token/json";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://api.stackexchange.com/2.2/me";
+            }
+        };
+
     }
 
     /**

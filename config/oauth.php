@@ -52,5 +52,11 @@ return [
         'client_id'     => env('OSCHINA_CLIENT_ID', ''),
         'redirect_uri'  => env('OSCHINA_CALLBACK', ''),
         'client_secret' => env('OSCHINA_SECRET', ''),
+    ],
+    'stackoverflow'=>[
+        'client_id'     => env('OSCHINA_CLIENT_ID', '20387'),
+        'redirect_uri'  => env('OSCHINA_CALLBACK', 'http://3646x08n70.zicp.vip/test/Web/stackoverflowcallback.php'),
+        'client_secret' => env('OSCHINA_SECRET', 'TGbMONBLFplTXX6UsZ69fA(('),
+        'client_key' => env('OSCHINA_SECRET', '9sNV4N359bH0Q1Go4gdJbw(('),
     ]
 ];

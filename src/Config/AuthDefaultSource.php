@@ -22,6 +22,7 @@ class AuthDefaultSource
     public $huawei;
     public $google;
     public $baidu;
+    public $oschina;
 
     public function __construct()
     {
@@ -187,6 +188,22 @@ class AuthDefaultSource
             public function userInfo(): string
             {
                 return "https://openapi.baidu.com/rest/2.0/passport/users/getInfo";
+            }
+        };
+        $this->oschina = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://www.oschina.net/action/oauth2/authorize";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://www.oschina.net/action/openapi/token";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://www.oschina.net/action/openapi/my_information";
             }
         };
     }

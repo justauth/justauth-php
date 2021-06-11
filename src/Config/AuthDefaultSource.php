@@ -232,7 +232,7 @@ class AuthDefaultSource
 
             public function accessToken(): string
             {
-                return "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
+                return "https://oapi.dingtalk.com/sns/gettoken";
             }
 
             public function userInfo(): string

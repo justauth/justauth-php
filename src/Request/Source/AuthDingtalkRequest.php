@@ -30,20 +30,20 @@ class AuthDingtalkRequest extends AuthCommonRequest
     {
         $token_url = $this->source_url->accessToken();
         $query     = array_filter([
-            'accessKey'     => $this->config['client_id'],
-            'redirect_uri'  => $this->config['redirect_url'],
-            'code'          => Request::get('code'),
-            'client_secret' => $this->config['client_secret'],
-            'grant_type'    => 'authorization_code'
+            'appid'     => $this->config['client_id'],
+            'appsecret' => $this->config['client_secret'],
         ]);
-        return json_decode($this->http->request('POST', $token_url, [
+        return $this->http->request('GET', $token_url, [
             'query' => $query,
-        ])->getBody()->getContents())->access_token;
+        ])->getBody()->getContents();
     }
 
 
-    public function getUserInfo($access_token = '')
+    public function getUserInfo($access_token)
     {
+        $access_data = json_decode($access_token, true);
+        print_r($access_data);
+        exit();
         $time          = millisecondWay();
         $signature     = $this->_setSignature($time);
         $user_info_url = $this->source_url->userInfo();
@@ -53,11 +53,12 @@ class AuthDingtalkRequest extends AuthCommonRequest
             'timestamp' => $time,
         ]);
         var_dump($this->http->request('POST', $user_info_url, [
-            'query' => $query,
-            'form_params'  => [
+            'query'       => $query,
+            'form_params' => [
                 'tmp_auth_code' => Request::get('code')
             ]
-        ])->getBody()->getContents());exit();
+        ])->getBody()->getContents());
+        exit();
         return json_decode($this->http->request('POST', $user_info_url, [
             'query' => $query,
             'body'  => [

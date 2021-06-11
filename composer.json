@@ -26,7 +26,9 @@
     "psr-4": {
       "JustAuth\\": "src/"
     },
-    "files": []
+    "files": [
+      "src/helper.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {

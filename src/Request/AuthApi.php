@@ -36,8 +36,8 @@ class AuthApi
     {
         try {
             return $this->api->getAccessToken();
-        }catch (AuthException $e) {
-            throw new AuthException($e->getCode(),$e->getMessage());
+        } catch (AuthException $e) {
+            throw new AuthException($e->getCode(), $e->getMessage());
         }
 
     }
@@ -45,10 +45,13 @@ class AuthApi
     public function getUserInfo(): array
     {
         try {
-            $oauth = $this->getAccessToken();
-            return $this->api->getUserInfo($oauth);
-        }catch (AuthException $e) {
-            throw new AuthException($e->getCode(),$e->getMessage());
+            if (!in_array($this->driver, ['dingtalk'])) {
+                $oauth = $this->getAccessToken();
+                return $this->api->getUserInfo($oauth);
+            }
+            return $this->api->getUserInfo();
+        } catch (AuthException $e) {
+            throw new AuthException($e->getCode(), $e->getMessage());
         }
     }
 }

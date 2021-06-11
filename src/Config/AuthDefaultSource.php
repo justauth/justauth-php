@@ -24,6 +24,7 @@ class AuthDefaultSource
     public $baidu;
     public $oschina;
     public $stackoverflow;
+    public $dingtalk;
 
     public function __construct()
     {
@@ -221,6 +222,22 @@ class AuthDefaultSource
             public function userInfo(): string
             {
                 return "https://api.stackexchange.com/2.2/me";
+            }
+        };
+        $this->dingtalk = new class extends AuthSource {
+            public function authorize(): string
+            {
+                return "https://oapi.dingtalk.com/connect/qrconnect";
+            }
+
+            public function accessToken(): string
+            {
+                return "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
+            }
+
+            public function userInfo(): string
+            {
+                return "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
             }
         };
 

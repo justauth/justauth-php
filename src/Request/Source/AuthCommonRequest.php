@@ -85,6 +85,6 @@ abstract class  AuthCommonRequest
 
     abstract public function getAccessToken();
 
-    abstract public function getUserInfo($access_token);
+    abstract public function getUserInfo($access_token = '');
 
 }

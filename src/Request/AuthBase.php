@@ -14,7 +14,7 @@ use pf\config\Config;
 
 class AuthBase
 {
-    private $driver = ['gitee', 'github', 'weibo', 'weixin', 'douyin', 'qq','huawei','google','baidu','oschina','stackoverflow'];
+    private $driver = ['gitee', 'github', 'dingtalk', 'weibo', 'weixin', 'douyin', 'qq', 'huawei', 'google', 'baidu', 'oschina', 'stackoverflow'];
     protected $source_config;
     protected $config = [];
 

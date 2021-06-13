@@ -60,8 +60,8 @@ return [
         'client_key'    => env('OSCHINA_SECRET', ''),
     ],
     'dingtalk'      => [
-        'client_id'     => env('OSCHINA_CLIENT_ID', 'dingoaot7zvjufgpczovnh'),
-        'redirect_uri'  => env('OSCHINA_CALLBACK', 'http://3646x08n70.zicp.vip/test/Web/dingtalkcallback.php'),
-        'client_secret' => env('OSCHINA_SECRET', 'imZeDdjjapSejLDZ3IBhW9qbSj9gjtxOGzBb_7Aq_ZlQ2eodCgM3ScQNQFGtk_d1'),
+        'client_id'     => env('OSCHINA_CLIENT_ID', ''),
+        'redirect_uri'  => env('OSCHINA_CALLBACK', ''),
+        'client_secret' => env('OSCHINA_SECRET', ''),
     ]
 ];

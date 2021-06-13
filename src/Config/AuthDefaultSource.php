@@ -28,7 +28,7 @@ class AuthDefaultSource
 
     public function __construct()
     {
-        $this->gitee  = new class extends AuthSource {
+        $this->gitee         = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://gitee.com/oauth/authorize";
@@ -44,7 +44,7 @@ class AuthDefaultSource
                 return "https://gitee.com/api/v5/user";
             }
         };
-        $this->github = new class extends AuthSource {
+        $this->github        = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://github.com/login/oauth/authorize";
@@ -60,7 +60,7 @@ class AuthDefaultSource
                 return "https://api.github.com/user/repos";
             }
         };
-        $this->weibo  = new class extends AuthSource {
+        $this->weibo         = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://api.weibo.com/oauth2/authorize";
@@ -81,7 +81,7 @@ class AuthDefaultSource
                 return "https://api.weibo.com/oauth2/get_token_info?access_token=";
             }
         };
-        $this->weixin = new class extends AuthSource {
+        $this->weixin        = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://open.weixin.qq.com/connect/qrconnect";
@@ -97,7 +97,7 @@ class AuthDefaultSource
                 return "https://api.weixin.qq.com/sns/userinfo";
             }
         };
-        $this->douyin = new class extends AuthSource {
+        $this->douyin        = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://open.douyin.com/platform/oauth/connect/";
@@ -113,7 +113,7 @@ class AuthDefaultSource
                 return "https://open.douyin.com/oauth/userinfo/";
             }
         };
-        $this->qq     = new class extends AuthSource {
+        $this->qq            = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://graph.qq.com/oauth2.0/authorize";
@@ -139,7 +139,7 @@ class AuthDefaultSource
                 return "https://graph.qq.com/oauth2.0/me?access_token=";
             }
         };
-        $this->huawei = new class extends AuthSource {
+        $this->huawei        = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://oauth-login.cloud.huawei.com/oauth2/v2/authorize";
@@ -155,7 +155,7 @@ class AuthDefaultSource
                 return "https://api.cloud.huawei.com/rest.php?nsp_fmt=JSON&nsp_svc=huawei.oauth2.user.getTokenInfo";
             }
         };
-        $this->google = new class extends AuthSource {
+        $this->google        = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline";
@@ -173,10 +173,10 @@ class AuthDefaultSource
 
             public function scope(): string
             {
-                return  "https://www.googleapis.com/auth/userinfo.profile";
+                return "https://www.googleapis.com/auth/userinfo.profile";
             }
         };
-        $this->baidu = new class extends AuthSource {
+        $this->baidu         = new class extends AuthSource {
             public function authorize(): string
             {
                 return "http://openapi.baidu.com/oauth/2.0/authorize";
@@ -192,7 +192,7 @@ class AuthDefaultSource
                 return "https://openapi.baidu.com/rest/2.0/passport/users/getInfo";
             }
         };
-        $this->oschina = new class extends AuthSource {
+        $this->oschina       = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://www.oschina.net/action/oauth2/authorize";
@@ -224,7 +224,7 @@ class AuthDefaultSource
                 return "https://api.stackexchange.com/2.2/me";
             }
         };
-        $this->dingtalk = new class extends AuthSource {
+        $this->dingtalk      = new class extends AuthSource {
             public function authorize(): string
             {
                 return "https://oapi.dingtalk.com/connect/qrconnect";
@@ -238,6 +238,11 @@ class AuthDefaultSource
             public function userInfo(): string
             {
                 return "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
+            }
+
+            public function getPersistentCode(): string
+            {
+                return "https://oapi.dingtalk.com/sns/get_persistent_code";
             }
         };
 

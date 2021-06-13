@@ -6,6 +6,7 @@
 
 namespace JustAuth\Request\Source;
 
+use JustAuth\Exception\AuthException;
 use pf\request\Request;
 
 class AuthDingtalkRequest extends AuthCommonRequest
@@ -42,8 +43,7 @@ class AuthDingtalkRequest extends AuthCommonRequest
     public function getUserInfo($access_token)
     {
         $access_data = json_decode($access_token, true);
-        print_r($access_data);
-        exit();
+        //$permanent_code = $this->getPersistentCode($access_data['access_token'], Request::get('code'));
         $time          = millisecondWay();
         $signature     = $this->_setSignature($time);
         $user_info_url = $this->source_url->userInfo();
@@ -52,26 +52,25 @@ class AuthDingtalkRequest extends AuthCommonRequest
             'signature' => $signature,
             'timestamp' => $time,
         ]);
-        var_dump($this->http->request('POST', $user_info_url, [
-            'query'       => $query,
-            'form_params' => [
+        $result        = json_decode($this->http->request('POST', $user_info_url, [
+            'query'   => $query,
+            'headers' => ['content-type' => 'application/json'],
+            'body'    => json_encode([
                 'tmp_auth_code' => Request::get('code')
-            ]
-        ])->getBody()->getContents());
-        exit();
-        return json_decode($this->http->request('POST', $user_info_url, [
-            'query' => $query,
-            'body'  => [
-                'tmp_auth_code' => Request::get('code')
-            ]
-        ])->getBody()->getContents());
+            ])
+        ])->getBody()->getContents(), true);
+        if ($result && isset($result['errcode'])) {
+            throw new AuthException($result['errcode'], $result['errmsg']);
+        }
+        return $result;
     }
 
     private function _setSignature($time)
     {
         $s         = hash_hmac('sha256', $time, $this->config['client_secret'], true);
         $signature = base64_encode($s);
-        return urlencode($signature);
+        return $signature;
+        //return urlencode($signature);
     }
 
     public function getUid($access_token)
@@ -80,5 +79,25 @@ class AuthDingtalkRequest extends AuthCommonRequest
         $result      = $this->http->post($user_id_url . $access_token);
         $result      = json_decode($result->getBody()->getContents(), true);
         return $result['uid'];
+    }
+
+    private function getPersistentCode($access_token, $tmp_auth_code)
+    {
+        $get_permanent_code_url = $this->source_url->getPersistentCode();
+        $query                  = array_filter([
+            'access_token' => $access_token
+        ]);
+        try {
+            $result = $this->http->request('POST', $get_permanent_code_url, [
+                'query'   => $query,
+                'headers' => ['content-type' => 'application/json'],
+                'body'    => json_encode([
+                    'tmp_auth_code' => $tmp_auth_code
+                ])
+            ]);
+            return json_decode($result->getBody()->getContents(), true);
+        } catch (\Exception $e) {
+            return new AuthException(GET_OPENID_ERROR());
+        }
     }
 }

@@ -7,6 +7,7 @@ PHP 版 JustAuth
 - [x]  支持 GITHUB 平台
 - [x]  支持 OSChina 平台
 - [x]  支持 StackOverflow 平台  
+- [x]  支持 钉钉 平台  
 - [x]  支持 百度 平台  
 - [x]  支持 微博 平台
 - [x]  支持 抖音 平台
@@ -14,7 +15,6 @@ PHP 版 JustAuth
 - [ ]  支持 微信 平台
 - [ ]  支持 华为 平台
 - [ ]  支持 Google 平台
-- [ ]  支持 钉钉 平台
 - [ ]  支持 Coding 平台
 - [ ]  支持 腾讯云开发者平台 平台
 - [ ]  支持 淘宝 平台
